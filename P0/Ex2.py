@@ -5,7 +5,7 @@ FILENAME = "U5.txt"
 
 DNA_FILE = FOLDER + FILENAME
 
-# -- Open the DNA file
+#Open the DNA file
 seq = seq_read_fasta(DNA_FILE)
 
 print("------> Exercise 2")
