@@ -11,14 +11,14 @@ print(f"-----| Exercise {PRACTICE} |------")
 for gene in GENES:
     seq = seq_read_fasta(FOLDER + gene + EXT)
 
-    # -- Dictionary with the values
+    # with this we create a dictionary with the values
     d = seq_count(seq)
 
-    # -- Create a list with all the values
+    # with this we create a list with all the values
     ll = list(d.values())
 
-    # -- Calculate the maximum
+    # with this we calculate the maximum
     m = max(ll)
 
-    # -- Print the base
+    #with this we print the base
     print(f"Gene {gene}: Most frequent Base: {BASES[ll.index(m)]}")
