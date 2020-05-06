@@ -9,7 +9,9 @@ class Seq:
     pass
 
 ##once the class is defined we can create objects of this class (in this case class Seq):
-s1 = Seq()
+s1 = Seq()  #we have placed a break point here, Breakpoints are source code markers that let you suspend program execution at a specific point and examine its behavior.
 s2 = Seq()
 
 print("Testing...")
+
+#press the debug option and then the step over function twice, then two new empty objects have been created
