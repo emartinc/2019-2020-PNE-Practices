@@ -1,13 +1,17 @@
 from Seq0 import *
+#first we create the program to print the sequence of the 20 first bases
+FOLDER = "../session-04/"
+FILENAME = "U5.txt"
 
-PRACTICE = 5
-FOLDER = "../Session-04/"
-EXT = ".txt"
-GENES = ["U5", "ADA", "FRAT1", "FXN", "U5"]
-BASES = ['A', 'C', 'T', 'G']
+DNA_FILE =(FOLDER + FILENAME)
 
-print(f"-----| Exercise {PRACTICE} |------")
+#Open the DNA file
+seq = seq_read_fasta(DNA_FILE)
+seq20 = seq[:20]
+reverse = seq_reverse(seq20)
+print("Exercise 6")
+print(f"Gene U5:")
 
-for gene in GENES:
-    seq = seq_read_fasta(FOLDER + gene + EXT)
-    print(f"Gene {gene}: {seq_count(seq)}")
+print(f"Fragment:",seq20)
+print(f"Reversed:",reverse)
+

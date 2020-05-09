@@ -1,24 +1,24 @@
 from Seq0 import *
 
-PRACTICE = 8
-FOLDER = "../Session-04/"
-EXT = ".txt"
+FOLDER = "../session-04/"
+txt =".txt"
 GENES = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
 BASES = ['A', 'T', 'C', 'G']
 
-print(f"-----| Exercise {PRACTICE} |------")
+print(f"Exercise 8")
 
-for gene in GENES:
-    seq = seq_read_fasta(FOLDER + gene + EXT)
+for gene in GENES: #for each element on the list GENE
+    seq = seq_read_fasta(FOLDER + gene + txt)
 
-    # with this we create a dictionary with the values
-    d = seq_count(seq)
+    #Creating a dictionary with the values
+    d = seq_count(seq) # function to Calculate the number of bases in the sequence parameter sequence (String) returns a Dictionary with the results
 
-    # with this we create a list with all the values
-    ll = list(d.values())
+    #Creating a list with all the values
+    list_values= list(d.values())
 
-    # with this we calculate the maximum
-    m = max(ll)
+    #Calculate the maximum
+    m = max(list_values)
 
-    #with this we print the base
-    print(f"Gene {gene}: Most frequent Base: {BASES[ll.index(m)]}")
+    #Print the base
+    print(f"Gene:", gene)
+    print("Most frequent Base:", BASES[list_values.index(m)])  # the .index(m) is to indicate the base associated with the maximum number

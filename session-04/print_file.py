@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import Path  #for accessing the files
 
 #Constant with the new of the file to open
 FILENAME = "RNU6_269P.txt"
