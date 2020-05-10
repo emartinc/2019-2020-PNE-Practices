@@ -1,24 +1,25 @@
-from Seq0 import *
+from Seq0 import *  # We import the functions from Seq0.py
 
-FOLDER = "../session-04/"
-txt =".txt"
-GENES = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
-BASES = ['A', 'T', 'C', 'G']
+print("Exercise 8")
 
-print(f"Exercise 8")
+FOLDER = "../session-04/"  # Obtaining the gene files from this folder
+bases = ["A", "C", "T", "G"]
+GENES= ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]  # List of genes
 
-for gene in GENES: #for each element on the list GENE
-    seq = seq_read_fasta(FOLDER + gene + txt)
+for gene in GENES:  # We go throw every file in the list , U5 , ADA...
+    sequence = seq_read_fasta(FOLDER + gene + ".txt")
+    # This function reads a file and return it's content
+    # Add the folder and .txt to read properly the file
+    dict_bases = seq_count(sequence)
+    # seq_count()
+    # This function counts the number of bases in a sequence in a dictionary
+    min_value = 0  # Set a min value
+    best_base = ""
+    for base, value in dict_bases.items():
+        # .items() gets the keys and values from a dictionary
+        while value > min_value:  # With this loop , find the most frecuent base
+            min_value = value
+            best_base = base
+            # Replace the minimun value with the "new minimun value" and the base with this value is set as best_base
 
-    #Creating a dictionary with the values
-    d = seq_count(seq) # function to Calculate the number of bases in the sequence parameter sequence (String) returns a Dictionary with the results
-
-    #Creating a list with all the values
-    list_values= list(d.values())
-
-    #Calculate the maximum
-    m = max(list_values)
-
-    #Print the base
-    print(f"Gene:", gene)
-    print("Most frequent Base:", BASES[list_values.index(m)])  # the .index(m) is to indicate the base associated with the maximum number
+    print("Gene", gene, " : Most frequent Base: ", best_base)
