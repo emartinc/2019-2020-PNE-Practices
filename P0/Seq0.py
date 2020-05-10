@@ -51,3 +51,10 @@ def seq_complement(seq):
         res += basec[b]
 
     return res
+
+def valid_seq(strbases):
+    validbases = ["A","C","G","T"]
+    for element in validbases:
+        if element not in validbases:
+            return False
+    return True
