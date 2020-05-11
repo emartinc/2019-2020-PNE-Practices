@@ -20,6 +20,7 @@ class Seq:
 
     def __str__(self):
         return self.strbases
+
     def len(self):
         return len(self.strbases)
 
@@ -58,11 +59,16 @@ class Seq:
         if self.strbases in [self.NULL, self.ERROR]: #to check if its an invalid seq or null
             return self.strbases
         # Creating a dictionary of complementary bases
-        bases = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
-        complementary = ""
-        for element in bases:
-            complementary += bases[element]
-        return complementary
+        else:
+            bases = ["A", "C", "T", "G"]
+            compbases = ["T", "G", "A", "C"]
+            dictcompbases = dict(zip(bases, compbases))
+            complementary = ""
+            for i in self.strbases:
+                for base, cobases in dictcompbases.items():
+                    if i == base:
+                        complementary += cobases
+            return complementary
 
     def seq_read_fasta(self, filename):
         "Read a file with a DNA sequence in FASTA format the parameter is the filename (String) and it returns the sequence(String)"
