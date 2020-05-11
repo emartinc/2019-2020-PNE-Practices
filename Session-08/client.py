@@ -3,7 +3,7 @@ import socket
 # SERVER IP, PORT
 # Write here the correct parameter for connecting to the
 # Teacher's server
-PORT = 8080
+PORT = 8081
 IP = "192.168.124.179"
 
 
@@ -20,3 +20,4 @@ s.send(str.encode("HELLO FROM THE CLIENT!!!"))
 
 # Closing the socket
 s.close()
+
