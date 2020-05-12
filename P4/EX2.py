@@ -1,6 +1,7 @@
 import socket
 import termcolor
-from pathlib import Path
+import pathlib
+
 
 
 # -- Server network parameters
@@ -31,8 +32,26 @@ def process_client(s):
     # blank line
     # Body (content to send)
 
-    # This are the new additions written in html language
-    body = Path("index.html").read_text()
+    # in order to read the file properly a new function is defined,
+    # it has the same purpose as the seq_read_fasta() defined in the practice 1
+
+    def read_file(FILENAME):
+        #first we need to open and read the desired file
+        contents = pathlib.Path(FILENAME).read_text().split("\n")[1:]  # Split lines and skip the first one [1:]
+        body = "".join(contents)  # Return the body as a string without the \n characters (without spaces)
+        return body
+
+    FOLDER = "../P4/"
+    FILENAME = "A.html"
+
+    request = req_line.split(" ")[1]
+    # request is like req_line (GET /info/A HTTP/1.1) only with (/info/A)
+
+    if "/info/A" == request:  # req_line is GET /info/A HTTP/1.1
+        body = read_file(FOLDER + FILENAME) #if what we are requesting is /info/A the program will return the html A file
+    else:
+        body = "" # if what we are requesting is other thing, the program will return a blank page
+
     # we "create" each part of the response message and then join them together
     # 1) Status line: We respond that everything is ok (200 code)
     status_line = "HTTP/1.1 200 OK\n"
