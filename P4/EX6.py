@@ -107,5 +107,5 @@ while True:
         # Service the client
         process_client(cs)
 
-        # -- Close the socket
+        # Close the socket
         cs.close()
