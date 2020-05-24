@@ -26,9 +26,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         return
 
 
-# ------------------------
-# - Server MAIN program
-# ------------------------
+
+# -- Server MAIN program
 # -- Set the new handler
 Handler = TestHandler
 
@@ -37,8 +36,7 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
 
     print("Serving at PORT", PORT)
 
-    # -- Main loop: Attend the client. Whenever there is a new
-    # -- clint, the handler is called
+    # -- Main loop: Attend the client. Whenever there is a new client, the handler is called
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

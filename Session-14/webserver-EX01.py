@@ -14,22 +14,23 @@ socketserver.TCPServer.allow_reuse_address = True
 class TestHandler(http.server.BaseHTTPRequestHandler):
 
     def do_GET(self):
-        """This method is called whenever the client invokes the GET method
-        in the HTTP protocol request"""
+        """This method is called whenever the client invokes the GET method in the HTTP protocol request"""
 
         # Print the request line
         termcolor.cprint(self.requestline, 'green')
 
-        # IN this simple server version:
-        # We are NOT processing the client's request
-        # It is a happy server: It always returns a message saying
-        # that everything is ok
-
-        # Message to send back to the clinet
-        contents = "I am the happy server! :-)"
+        # Modifications for Exercise 1
+        # Message to send back to the client:
+        if self.path == "/":
+            contents = "Welcome to my server "
+        else:
+            contents = "Resource not available"
 
         # Generating the response message
-        self.send_response(200)  # -- Status line: OK!
+        if self.path == "/":
+            self.send_response(200)  # -- Status line: OK!
+        else:
+            self.send_response(404)  # -- Status line: ERROR NOT FOUND
 
         # Define the content-type header:
         self.send_header('Content-Type', 'text/plain')
@@ -44,13 +45,13 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         return
 
 
+
 # - Server MAIN program
-# -- Set the new handler
+# -- Setting the new handler
 Handler = TestHandler
 
-# -- Open the socket server
+# -- Opening the socket server
 with socketserver.TCPServer(("", PORT), Handler) as httpd:
-
     print("Serving at PORT", PORT)
 
     # -- Main loop: Attend the client. Whenever there is a new client, the handler is called

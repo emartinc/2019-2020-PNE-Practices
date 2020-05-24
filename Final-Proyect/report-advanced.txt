@@ -1,0 +1,458 @@
+Test report.
+
+
+Testing the main page.
+
+Input:
+
+/
+
+Response received: 200
+
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <title>FINAL PRACTICE</title>
+
+  </head>
+
+  <body style="background-color: lightyellow">
+
+  <h1><center>Browsing Human and Vertebrates Genomes</center></h1>
+
+
+
+    <p></p>
+
+    <form action="/listSpecies" method="get">
+
+         1) List of species in the genome database:
+
+        <br>
+
+        Enter a number of species: <input type="text" size="4" name="limit"><br>
+
+        JSON response:
+
+        <input type="checkbox" name="json" value="1">
+
+        <br>
+
+        <input type="submit" value="Go!">
+
+
+
+
+
+    </form>
+
+  <form action="/karyotype" method="get">
+
+      <br>
+
+         2) Information about the karyotype of a specific specie:
+
+      <br>
+
+        Enter the name of the specie: <input type="text" size="20" name="specie"><br>
+
+      JSON response:
+
+        <input type="checkbox" name="json" value="1">
+
+        <br>
+
+        <input type="submit" value="Go!">
+
+
+
+  </form>
+
+
+
+  <form action="/chromosomeLength" method="get">
+
+      <br>
+
+         3) Information about the length of a chromosome:
+
+        <br>
+
+         Enter the name of a specie:<input type="text" size="20" name="specie"><br>
+
+         Enter a chromosome of the specie: <input type="text" size="20" name="chromo"><br>
+
+          JSON response:
+
+            <input type="checkbox" name="json" value="1">
+
+            <br>
+
+
+
+        <input type="submit" value="Go!">
+
+  </form>
+
+
+
+  <form action="/geneSeq" method="get">
+
+      <br>
+
+         4) Information about the sequence of a given human gene:
+
+        <br>
+
+         Enter the name of a human gene:<input type="text" size="20" name="gene"><br>
+
+        JSON response:
+
+        <input type="checkbox" name="json" value="1">
+
+        <br>
+
+        <input type="submit" value="Go!">
+
+  </form>
+
+
+
+    <form action="/geneInfo" method="get">
+
+      <br>
+
+         5) Information about the start, end, length, id and chromosome of a given human gene:
+
+        <br>
+
+        Enter the name of a human gene:<input type="text" size="20" name="gene"><br>
+
+        JSON response:
+
+        <input type="checkbox" name="json" value="1">
+
+        <br>
+
+        <input type="submit" value="Go!">
+
+  </form>
+
+
+
+    <form action="/geneCal" method="get">
+
+      <br>
+
+         6) Information about the total length and the percentage of all the bases of a given human gene:
+
+        <br>
+
+        Enter the name of a human gene:<input type="text" size="20" name="gene"><br>
+
+        JSON response:
+
+        <input type="checkbox" name="json" value="1">
+
+        <br>
+
+        <input type="submit" value="Go!">
+
+  </form>
+
+
+
+    <form action="/geneList" method="get">
+
+      <br>
+
+         7) Names of the genes of a given human chromosome:
+
+        <br>
+
+         Enter the name of a human chromosome:<input type="text" size="20" name="chromo"><br>
+
+         Enter a start position:<input type="text" size="20" name="start"><br>
+
+         Enter an end position:<input type="text" size="20" name="end"><br>
+
+        JSON response:
+
+        <input type="checkbox" name="json" value="1">
+
+        <br>
+
+        <input type="submit" value="Go!">
+
+  </form>
+
+  </body>
+
+</html>
+
+Testing the rest of the endpoints.
+
+
+1) Testing the listSpecies endpoint when json format is not selected.
+
+Input:
+
+/listSpecies?limit=10
+
+Response received: 200
+
+
+                            <html>
+
+                  <body style="background-color: lightgreen;">
+
+                    <h1>List of all species</h1>
+
+                            <ul><li>notechis_scutatus</li><li>nothoprocta_perdicaria</li><li>vulpes_vulpes</li><li>physeter_catodon</li><li>apteryx_haastii</li><li>myripristis_murdjan</li><li>prolemur_simus</li><li>strigops_habroptila</li><li>petromyzon_marinus</li><li>erythrura_gouldiae</li>
+
+                            </ul>
+
+                            </body>
+
+                            </html>
+
+
+
+
+2) Testing the karyotype endpoint when json format is not selected.
+
+Input:
+
+/karyotype?specie=human
+
+Response received: 200
+
+
+
+                                <html>
+
+                      <body style="background-color: lightblue;">
+
+                        <h1>Karyotype</h1>
+
+                                <ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>X</li><li>Y</li><li>MT</li>
+
+                                </ul>
+
+                                </body>
+
+                                </html>
+
+
+
+
+3) Testing the chromosomeLength endpoint when json format is not selected.
+
+Input:
+
+/chromosomeLength?specie=mouse&chromo=10
+
+Response received: 200
+
+
+                                  <html>
+
+                    <body style="background-color: pink;">
+
+                    <h1>Length of the Chromosome</h1>
+
+                                    130694993
+
+                                </body>
+
+                                </html>
+
+
+
+
+4) Testing the geneSeq endpoint when json format is not selected.
+
+Input:
+
+/geneSeq?gene=FRAT1
+
+Response received: 200
+
+
+
+                                  <html>
+
+                        <body style="background-color: lightgreen;">
+
+                          <h1>DNA sequence</h1>
+
+                            CGGCTCCCGCGGCTGCAGGCGCGCGGCTAGAGTGCCTGGCGGGCTCCGGCTTCCGCGTCCGCCCCGGCCCCGGTCCAGACTTAGTCTTCAGCTCCGCGCCCGCTCCGCCGCGGCCCACCGCGCCCGCCGGCAGCCGAGCCCCCAGCGACGCCCGCACAGCTCCGGGTGCCCAGACAGGGGGCCATGCCGTGCCGGAGGGAGGAGGAAGAGGAAGCCGGCGAGGAGGCGGAGGGGGAGGAAGAGGAGGAGGACAGCTTCCTCCTACTGCAGCAGTCAGTGGCGCTGGGCAGCTCGGGCGAGGTGGACCGGCTGGTGGCCCAGATCGGCGAGACGCTGCAGCTGGACGCGGCGCAGCACAGCCCGGCCTCGCCGTGCGGGCCCCCGGGGGCGCCGCTGCGGGCCCCGGGGCCCCTGGCTGCGGCGGTGCCGGCGGACAAGGCCAGGTCCCCGGCGGTGCCGCTGCTGCTGCCGCCCGCGTTGGCGGAGACTGTGGGCCCGGCGCCCCCTGGGGTCCTGCGCTGCGCCCTGGGGGACCGCGGCCGCGTGCGGGGCCGCGCTGCGCCCTACTGCGTGGCCGAGCTCGCCACAGGCCCCAGCGCGCTGTCCCCACTGCCCCCTCAGGCCGACCTTGATGGGCCTCCGGGAGCTGGCAAGCAGGGCATCCCGCAGCCGCTGTCGGGTCCGTGCCGGCGAGGATGGCTCCGGGGCGCCGCCGCCTCCCGCCGCCTGCAGCAGCGACGCGGGTCCCAACCAGAAACCCGCACAGGCGACGACGACCCGCACCGGCTTCTGCAGCAGCTAGTGCTCTCTGGAAACCTCATCAAGGAGGCCGTGCGAAGGCTTCATTCGCGACGGCTGCAGTTACGTGCAAAGCTTCCCCAACGCCCGCTCCTGGGACCTCTGTCGGCCCCGGTGCATGAACCCCCTTCGCCTCGCAGCCCTCGCGCGGCCTGCAGTGACCCTGGCGCCTCCGGGAGGGCGCAGCTCAGAACTGGCGACGGCGTTCTTGTGCCTGGCAGCTAACACGCCCGGGGTGGCCACAGCGCCAGCCTCAGACTGGAGGGCAAGGGGTTCCCTTGAGGGCTGCAGTTCTACTCAGGCTGGTGGAGAACTCTGGCTTTTGGAAGCGAGAGTAAAAAGCTAATGACGAGGAACCGAAAAATCGCGAGTGTTTCGCGGGTAACTGGGGTTGAGGGCCAAAATATTTGGAATGAAGGACTTTGGCCCTATTTAAGGCAGATTTTACAGAGCGCACCTCAAACGTACAAGTCAGTAGGACTCCTTATTTGGCGTGACCCGACCTGGCCGCGGAGCCTGCATTTCCTCGCAGCCTCTCAGTGCCCTCCAGCCCCGCGACCATGTGGCCACAATCCACGCTTCTCCGGATCGCGGTGCGCCGGAACCACGGAGGATGATGCCAGTTACTTGCTTTACCTTTTCAGGGCTGGCTCCTGATCCACTTTGGGGGAGGAGAACATGAGTAGATAATTTCAGGGTGCAGCCCAATCTGCCAGACTTAAAAAAACCATCTTGTGTCTTTGGAGGTGCTGCTTAATACCAAACATGCGGTGCCATGAAGGGACCCTTTGGGGGTTGAATAGGAGTTAACCCCTGCGCTCTCTTTGCAACTGTCTCTCTTCTCAGAGTGGTGGGGGAAGGCTGTACGACACGGGTGGGGAAAGGAGGTGGGGGCGGGGAGTATTGAATGGTGGTGGAAGGGTAGAGAGGCGCGGAGTGAACCCCACGCCCTGTCTAAAGTGTATTTTCAGAGCCGGCCCGCCTCTCCTCGGTTCAAGGTCACTGTTTCCTGGGCACGCACTGGGTTGCGGGACAGAGTAGCCAGGTTCTGCCGGTGCTCGGAGAAGAGCGCAGTGTTTTGCAAGTGCTGGAGTCTCCTGAGGACACGCGCGTCGCCGCCACCGCGGGTGTGGGAAAGCGCGGACGTGCTGGGCGGCTGTGCTTCGGTAGGCGACCACCGCCCCTGGCCGCGCTCCGGGCTTTCACGGAAACTCCCGAGACCGGGCCCTGGGTTCCTCCTCTCCTACTCGGCTCTGCAGTCCTACTCAAGCGGGTGGCTCTGGGATCCTGGGGGCCTGGGTTGGGGGCTAGGGAGACGCCATGTGATGGACACTCCAGGGACACACAGCCTAGCACAGCAGCTTATAATGGGCTCTCCGGGGCCATTTGCAATAACAGCTGCAATTCCCTGGATAGACGAGTTGATTTCCTCCCTCTGCCCCTCCCCCAGCCATGCCAGCTGGCCTTTGTAAGTGCAGGAAACCGAGTAGAAAATGTGACCCTCCAAATGGAGAAGCTGCAGGCTTTGCCATTGTGAACCATGGTGAAGTGCTTGGAACATACTGTTCACTCACTCTAAAGGCGCTGAGACTGTGCTGTTGTTCTCGTTTTTATAGTCAATGGCTTGTTCATCATCCAGATGTGGCTACTGACATATCTACACTTCGCACCGGAGTGTCTGGAATTGTGGCTATCCTGATTATAGGATTTTAACTTAACTGAAATGCCTGCTTTGAATAAATGTGTTGGGTTTTTTGTTTGGTTTTATTTTATACTTGCCATCAGTGAAAAAGATGTACAGAACACATTTCTCTGATCTCCATAAACATGAAAACACTTGAAATCTC
+
+                                  </body>
+
+                                  </html>
+
+
+
+
+5) Testing the geneInfo endpoint when json format is not selected.
+
+Input:
+
+/geneInfo?gene=FRAT1
+
+Response received: 200
+
+
+
+                                      <html>
+
+                            <body style="background-color: lightgreen;">
+
+                              <h1>Information about the Gene</h1>
+
+                                Start:97319271
+End:97321915
+Length:2644
+Chromosome:GRCh38
+Id:ENSG00000165879
+
+                                      </body>
+
+                                      </html>
+
+
+
+
+6) Testing the geneCalc endpoint when json format is not selected.
+
+Input:
+
+/geneCalc?gene=FRAT1
+
+Response received: 200
+
+
+
+                                      <html>
+
+                            <body style="background-color: lightgreen;">
+
+                              <h1>Total Lenght and Percentage of each Base</h1>
+
+                                Lenght2645<br>Percentage of A's18.0<br>Percentage of C's30.2<br>Percentage of T's19.7<br>Percentage of G's: 32.1
+
+                                      </body>
+
+                                      </html>
+
+
+
+
+7) Testing the geneList endpoint when json format is not selected.
+
+Input:
+
+/geneList?chromo=1&start=0&end=30000
+
+Response received: 200
+
+
+
+                                                    <html>
+
+                                          <body style="background-color: lightgreen;">
+
+                                            <h1>Name of Each Gene</h1>
+
+                                                    <ul><li>DDX11L1</li><li>WASH7P</li><li>MIR6859-1</li><li>MIR1302-2HG</li>
+
+                                                    </ul>
+
+                                                    </body>
+
+                                                    </html>
+
+
+
+
+1) Testing the listSpecies endpoint when json format is selected.
+
+Input:
+
+/listSpecies?limit=10&json=1
+
+Response received: 200
+
+{'Species': ['notechis_scutatus', 'nothoprocta_perdicaria', 'vulpes_vulpes', 'physeter_catodon', 'apteryx_haastii', 'myripristis_murdjan', 'prolemur_simus', 'strigops_habroptila', 'petromyzon_marinus', 'erythrura_gouldiae']}
+
+
+2) Testing the karyotype endpoint when json format is selected.
+
+Input:
+
+/karyotype?specie=human&json=1
+
+Response received: 200
+
+{'karyotype': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', 'X', 'Y', 'MT']}
+
+
+3) Testing the chromosomeLength endpoint when json format is selected.
+
+Input:
+
+/chromosomeLength?specie=mouse&chromo=10&json=1
+
+Response received: 200
+
+{'name_specie': 'mouse', 'name_chromo': '10'}
+
+
+4) Testing the geneSeq endpoint when json format is selected.
+
+Input:
+
+/geneSeq?gene=FRAT1&json=1
+
+Response received: 200
+
+{'DNAsequence': 'CGGCTCCCGCGGCTGCAGGCGCGCGGCTAGAGTGCCTGGCGGGCTCCGGCTTCCGCGTCCGCCCCGGCCCCGGTCCAGACTTAGTCTTCAGCTCCGCGCCCGCTCCGCCGCGGCCCACCGCGCCCGCCGGCAGCCGAGCCCCCAGCGACGCCCGCACAGCTCCGGGTGCCCAGACAGGGGGCCATGCCGTGCCGGAGGGAGGAGGAAGAGGAAGCCGGCGAGGAGGCGGAGGGGGAGGAAGAGGAGGAGGACAGCTTCCTCCTACTGCAGCAGTCAGTGGCGCTGGGCAGCTCGGGCGAGGTGGACCGGCTGGTGGCCCAGATCGGCGAGACGCTGCAGCTGGACGCGGCGCAGCACAGCCCGGCCTCGCCGTGCGGGCCCCCGGGGGCGCCGCTGCGGGCCCCGGGGCCCCTGGCTGCGGCGGTGCCGGCGGACAAGGCCAGGTCCCCGGCGGTGCCGCTGCTGCTGCCGCCCGCGTTGGCGGAGACTGTGGGCCCGGCGCCCCCTGGGGTCCTGCGCTGCGCCCTGGGGGACCGCGGCCGCGTGCGGGGCCGCGCTGCGCCCTACTGCGTGGCCGAGCTCGCCACAGGCCCCAGCGCGCTGTCCCCACTGCCCCCTCAGGCCGACCTTGATGGGCCTCCGGGAGCTGGCAAGCAGGGCATCCCGCAGCCGCTGTCGGGTCCGTGCCGGCGAGGATGGCTCCGGGGCGCCGCCGCCTCCCGCCGCCTGCAGCAGCGACGCGGGTCCCAACCAGAAACCCGCACAGGCGACGACGACCCGCACCGGCTTCTGCAGCAGCTAGTGCTCTCTGGAAACCTCATCAAGGAGGCCGTGCGAAGGCTTCATTCGCGACGGCTGCAGTTACGTGCAAAGCTTCCCCAACGCCCGCTCCTGGGACCTCTGTCGGCCCCGGTGCATGAACCCCCTTCGCCTCGCAGCCCTCGCGCGGCCTGCAGTGACCCTGGCGCCTCCGGGAGGGCGCAGCTCAGAACTGGCGACGGCGTTCTTGTGCCTGGCAGCTAACACGCCCGGGGTGGCCACAGCGCCAGCCTCAGACTGGAGGGCAAGGGGTTCCCTTGAGGGCTGCAGTTCTACTCAGGCTGGTGGAGAACTCTGGCTTTTGGAAGCGAGAGTAAAAAGCTAATGACGAGGAACCGAAAAATCGCGAGTGTTTCGCGGGTAACTGGGGTTGAGGGCCAAAATATTTGGAATGAAGGACTTTGGCCCTATTTAAGGCAGATTTTACAGAGCGCACCTCAAACGTACAAGTCAGTAGGACTCCTTATTTGGCGTGACCCGACCTGGCCGCGGAGCCTGCATTTCCTCGCAGCCTCTCAGTGCCCTCCAGCCCCGCGACCATGTGGCCACAATCCACGCTTCTCCGGATCGCGGTGCGCCGGAACCACGGAGGATGATGCCAGTTACTTGCTTTACCTTTTCAGGGCTGGCTCCTGATCCACTTTGGGGGAGGAGAACATGAGTAGATAATTTCAGGGTGCAGCCCAATCTGCCAGACTTAAAAAAACCATCTTGTGTCTTTGGAGGTGCTGCTTAATACCAAACATGCGGTGCCATGAAGGGACCCTTTGGGGGTTGAATAGGAGTTAACCCCTGCGCTCTCTTTGCAACTGTCTCTCTTCTCAGAGTGGTGGGGGAAGGCTGTACGACACGGGTGGGGAAAGGAGGTGGGGGCGGGGAGTATTGAATGGTGGTGGAAGGGTAGAGAGGCGCGGAGTGAACCCCACGCCCTGTCTAAAGTGTATTTTCAGAGCCGGCCCGCCTCTCCTCGGTTCAAGGTCACTGTTTCCTGGGCACGCACTGGGTTGCGGGACAGAGTAGCCAGGTTCTGCCGGTGCTCGGAGAAGAGCGCAGTGTTTTGCAAGTGCTGGAGTCTCCTGAGGACACGCGCGTCGCCGCCACCGCGGGTGTGGGAAAGCGCGGACGTGCTGGGCGGCTGTGCTTCGGTAGGCGACCACCGCCCCTGGCCGCGCTCCGGGCTTTCACGGAAACTCCCGAGACCGGGCCCTGGGTTCCTCCTCTCCTACTCGGCTCTGCAGTCCTACTCAAGCGGGTGGCTCTGGGATCCTGGGGGCCTGGGTTGGGGGCTAGGGAGACGCCATGTGATGGACACTCCAGGGACACACAGCCTAGCACAGCAGCTTATAATGGGCTCTCCGGGGCCATTTGCAATAACAGCTGCAATTCCCTGGATAGACGAGTTGATTTCCTCCCTCTGCCCCTCCCCCAGCCATGCCAGCTGGCCTTTGTAAGTGCAGGAAACCGAGTAGAAAATGTGACCCTCCAAATGGAGAAGCTGCAGGCTTTGCCATTGTGAACCATGGTGAAGTGCTTGGAACATACTGTTCACTCACTCTAAAGGCGCTGAGACTGTGCTGTTGTTCTCGTTTTTATAGTCAATGGCTTGTTCATCATCCAGATGTGGCTACTGACATATCTACACTTCGCACCGGAGTGTCTGGAATTGTGGCTATCCTGATTATAGGATTTTAACTTAACTGAAATGCCTGCTTTGAATAAATGTGTTGGGTTTTTTGTTTGGTTTTATTTTATACTTGCCATCAGTGAAAAAGATGTACAGAACACATTTCTCTGATCTCCATAAACATGAAAACACTTGAAATCTC'}
+
+
+5) Testing the geneInfo endpoint when json format is selected.
+
+Input:
+
+/geneInfo?gene=FRAT1&json=1
+
+Response received: 200
+
+{'start': 97319271, 'end': 97321915, 'length': 2644, 'chromo': 'GRCh38', 'id': 'ENSG00000165879'}
+
+
+6) Testing the geneInfo endpoint when json format is selected.
+
+Input:
+
+/geneCalc?gene=FRAT1&json=1
+
+Response received: 200
+
+{'length': 2645, 'Perc_A': 18.0, 'Perc_c': 30.2, 'Perc_T': 19.7, 'Perc_G': 32.1}
+
+
+7) Testing the geneList endpoint when json format is selected.
+
+Input:
+
+/geneList?chromo=1&start=0&end=30000&json=1
+
+Response received: 200
+
+{'Gene': ['DDX11L1', 'WASH7P', 'MIR6859-1', 'MIR1302-2HG']}
