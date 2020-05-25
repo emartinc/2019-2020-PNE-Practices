@@ -11,10 +11,10 @@ PORT = 8080
 
 class TestHandler(http.server.BaseHTTPRequestHandler):
 
-    def convert_dict(self, path): # function in order to build a dictionary
+    def convert_dict(self, path):  # function in order to build a dictionary
         Dictionary = dict()
 
-        if '?' in path: # if the ? is in my path it means that my path has at least one variable
+        if '?' in path:  # if the ? is in my path it means that my path has at least one variable
             key_value = path.split('?')[1]
             key_value = key_value.split(' ')[0]
             list1 = key_value.split('&')
@@ -32,32 +32,38 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
 # creating an if... elif... else... statement in order to make decisions depending on the selected endpoint
 
-        if self.path == '/': # when the only additional thing that appears on the url is a / we print the main page, the index page
-            jsonvalue = 0 # when the json parameter is not present the server will send a response with the html pages instead
-            contents = 'index.html' # the html page
+        if self.path == '/':
+            # when the only additional thing that appears on the url is a / we print the main page, the index page
+            jsonvalue = 0
+            # when the json parameter is not present the server will send a response with the html pages instead
+            contents = 'index.html'  # the html page
 
             with open(contents, 'r') as a:
                 contents = a.read()
                 a.close()
 
-        elif '/listSpecies' in self.path: # here we start adding things, if in the url appears /listspecies (first endpoint)
-            if 'limit' in self.path: #if the parameter limit is specified that number is the amount of species that are going to be shown
+        elif '/listSpecies' in self.path:
+            # here we start adding things, if in the url appears /listspecies (first endpoint)
+            if 'limit' in self.path:
+                # if the parameter limit is specified that number is the amount of species that are going to be shown
                 try:
-                    arguments = self.convert_dict(self.path) #using the function defined previously in order to create a dictionary with all the species
-                    limit = arguments['limit'] #the limit parameter indicates the maximum number of species to show
+                    arguments = self.convert_dict(self.path)
+                    # using the function defined previously in order to create a dictionary with all the species
+                    limit = arguments['limit']  # the limit parameter indicates the maximum number of species to show
                     # making the petition to the REST API
                     ENDPOINT = "/info/species?content-type=application/json"
                     headers = {'User-Agent': 'http-client'}
-                    connection = http.client.HTTPConnection(HOSTNAME) #stablishing the connection with the client
+                    connection = http.client.HTTPConnection(HOSTNAME)  # stablishing the connection with the client
                     connection.request(METHOD, ENDPOINT, None, headers)
-                    response = connection.getresponse() #this is in order to get the response
+                    response = connection.getresponse()  # this is in order to get the response
                     text_json = response.read().decode("utf-8")
-                    connection.close() # closing/stopping the connection with the server
+                    connection.close()  # closing/stopping the connection with the server
 
                     data1 = json.loads(text_json)
                     species = data1['species']
 
-                except TypeError: # we do this in order to make sure that if any error is done when entering the data it appears
+                except TypeError:
+                    # we do this in order to make sure that if any error is done when entering the data it appears
                     HTTP_CODE = 404
                     # making the petition to the REST API
                     ENDPOINT = "/info/species?content-type=application/json"
@@ -74,7 +80,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 try:
                     int(limit)
 
-                except ValueError: # we do this in order to make sure that if any error is done when entering the data it appears
+                except ValueError:
+                    # we do this in order to make sure that if any error is done when entering the data it appears
                     HTTP_CODE = 404
                     limit = len(species)
 
@@ -91,27 +98,28 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 species = data1['species']
                 limit = len(species)
 
-            count = 0 # setting the counter
+            count = 0  # setting the counter
             List = []
 
             for one in species:
                 specie = one['name']
                 List.append(specie)
-                count = count + 1 #each time one new specie is added to the list the counter sums one
+                count = count + 1  # each time one new specie is added to the list the counter sums one
 
-                if int(count) == int(limit): #when the number of species is reached we stop
+                if int(count) == int(limit):  # when the number of species is reached we stop
                     break
 
             Dictionary = {}
             Dictionary['Species'] = List
 
-            if 'json=1' in self.path: # to show the info of the page in json format
+            if 'json=1' in self.path:  # to show the info of the page in json format
                 jsonvalue = 1
                 contents = json.dumps(Dictionary)
 
             else:
-                jsonvalue = 0 #to show the info of the page as an html intead of a json
-                # the defined html page is very short and simple, thats why is inserted inside the code. this html page contains the list of the species
+                jsonvalue = 0  # to show the info of the page as an html intead of a json
+                # the defined html page is very short and simple, thats why is inserted inside the code.
+                # this html page contains the list of the species
                 contents = """  
                             <html>
 
@@ -141,15 +149,16 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                             """
 
-        elif '/karyotype' in self.path: # endpoint to return information about the karyotype of a specie
-            arguments = self.convert_dict(self.path) # using the previously created function in order to create a dictionary with the values
+        elif '/karyotype' in self.path:  # endpoint to return information about the karyotype of a specie
+            arguments = self.convert_dict(self.path)
+            # using the previously created function in order to create a dictionary with the values
 
             try:
                 name = arguments['specie']
                 # making the petition to the REST API
                 ENDPOINT = "/info/assembly/" + name + "?"
                 headers = {'Content-Type': 'application/json'}
-                connection = http.client.HTTPConnection(HOSTNAME) #stablishing the connection
+                connection = http.client.HTTPConnection(HOSTNAME)  # stablishing the connection
                 connection.request(METHOD, ENDPOINT, None, headers)
                 r1 = connection.getresponse()
                 text_json = r1.read().decode("utf-8")
@@ -159,13 +168,14 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 Dict = {}
                 Dict['karyotype'] = response['karyotype']
 
-                if 'json=1' in self.path: # printing the result in a json format
+                if 'json=1' in self.path:  # printing the result in a json format
                     jsonvalue = 1
                     contents = json.dumps(Dict)
 
                 else:
-                    jsonvalue = 0 # showing the info as an html page
-                    # the defined html page is very short and simple, thats why is inserted inside the code. this html page contains the info about the karyotype
+                    jsonvalue = 0  # showing the info as an html page
+                    # the defined html page is very short and simple, thats why is inserted inside the code.
+                    # this html page contains the info about the karyotype
                     contents = """
 
                                 <html>
@@ -189,7 +199,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                                 """
 
-            except KeyError: # taking care of the error that appears when an invalid name is inserted
+            except KeyError:  # taking care of the error that appears when an invalid name is inserted
                 jsonvalue = 0
                 HTTP_CODE = 404
                 # the html page that appears throws a warning message
@@ -206,15 +216,16 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                             """
 
-        elif '/chromosomeLength' in self.path: # endpoint to return the length of the chromosome of a given specie
-            arguments = self.convert_dict(self.path) # using the previously created function in order to create a dictionary with the values
+        elif '/chromosomeLength' in self.path:  # endpoint to return the length of the chromosome of a given specie
+            arguments = self.convert_dict(self.path)
+            # using the previously created function in order to create a dictionary with the values
 
             try:
                 Dict = {}
                 Dict['name_specie'] = arguments['specie']
                 Dict['name_chromo'] = arguments['chromo']
-                name_specie = arguments['specie'] #parameter
-                name_chromosome = arguments['chromo'] #parameter
+                name_specie = arguments['specie']  # parameter
+                name_chromosome = arguments['chromo']  # parameter
                 # making the petition to the REST API
                 ENDPOINT = "/info/assembly/" + name_specie + "?"
                 headers = {'Content-Type': 'application/json'}
@@ -224,16 +235,18 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 print('Response received: {}\n'.format(r1.status, r1.reason))
                 data1 = r1.read().decode('utf-8')
                 connection.close()
-                response = json.loads(data1) #transform into data structures
+                response = json.loads(data1)  # transform into data structures
 
                 if 'json=1' in self.path:  # printing the data in json format
                     jsonvalue = 1
                     contents = json.dumps(Dict)
 
                 else:
-                    jsonvalue = 0  #printing the data in html format
+                    jsonvalue = 0  # printing the data in html format
                     response = response['top_level_region']
-                    # the defined html page is very short and simple, thats why is inserted inside the code. this html page contains the info about the length of the chromosome
+                    # the defined html page is very short and simple,
+                    # thats why is inserted inside the code.
+                    # this html page contains the info about the length of the chromosome
                     contents = """
                                   <html>
 
@@ -245,7 +258,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                     ok = False
 
-                    for element in response:  # if the entered name of a chromosome is valid calculate the length of that chromosome
+                    for element in response:  # if the entered name of a chromosome is valid
+                        # calculate the length of that chromosome
                         if element['name'] == name_chromosome:
                             contents = contents + str(element['length'])
                             ok = True
@@ -261,7 +275,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                                 """
 
-            except KeyError: # # taking care of the error that appears when an invalid name is inserted
+            except KeyError:  # taking care of the error that appears when an invalid name is inserted
                 jsonvalue = 0
                 HTTP_CODE = 404
                 # the html page that appears throws a warning message
@@ -279,10 +293,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                         """
 
-        elif "/geneSeq" in self.path: # endpoint to return the sequence of a given human gene
-            arguments = self.convert_dict(self.path) # using the previously created function in order to create a dictionary with the values
+        elif "/geneSeq" in self.path:  # endpoint to return the sequence of a given human gene
+            arguments = self.convert_dict(self.path)
+            # using the previously created function in order to create a dictionary with the values
             try:
-                gene_name = arguments['gene'] #paramenter (the data is stored in a dictionary)
+                gene_name = arguments['gene']  # paramenter (the data is stored in a dictionary)
                 # making the petition to the REST API
                 ENDPOINT = "/homology/symbol/human/" + gene_name + "?content-type=application/json"
                 headers = {'User-Agent': 'http-client'}
@@ -292,7 +307,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 data1 = r1.read().decode('utf-8')
                 connection.close()
 
-                response = json.loads(data1) # transform the into data structure
+                response = json.loads(data1)  # transform the into data structure
                 id = response['data'][0]['id']
 
                 connection.request('GET', '/sequence/id/' + id + '?content-type=application/json')
@@ -306,13 +321,14 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 Dict = {}
                 Dict['DNAsequence'] = response['seq']
 
-                if 'json=1' in self.path: # printing the data in json format
+                if 'json=1' in self.path:  # printing the data in json format
                     jsonvalue = 1
-                    contents = json.dumps(Dict) #
+                    contents = json.dumps(Dict)  #
 
                 else:
-                    jsonvalue = 0 #printing the data in html format
-                    # the defined html page is very short and simple, thats why is inserted inside the code. this html page contains sequence of a given human gene
+                    jsonvalue = 0  # printing the data in html format
+                    # the defined html page is very short and simple, thats why is inserted inside the code.
+                    # this html page contains sequence of a given human gene
                     contents = """
 
                                   <html>
@@ -347,8 +363,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                             """
 
-        elif "/geneInfo" in self.path: # endpoint thata when entered returns all the info about a human gene(length, start, end nid, chromosome...)
-            arguments = self.convert_dict(self.path) # using the previously created function in order to create a dictionary with the values
+        elif "/geneInfo" in self.path:
+            # endpoint thata when entered returns all the info about a human gene(length, start, end nid, chromosome...)
+            arguments = self.convert_dict(self.path)
+            # using the previously created function in order to create a dictionary with the values
             try:
                 gene_name = arguments['gene']
                 # making the petition to the REST API, stablising the connection with it.
@@ -359,7 +377,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 r1 = connection.getresponse()
                 data1 = r1.read().decode('utf-8')
                 connection.close()
-                response = json.loads(data1) #transform into data structure
+                response = json.loads(data1)  # transform into data structure
                 idd = response['data'][0]['id']
 
                 ENDPOINT = "/overlap/id/" + idd + "?feature=gene;content-type=application/json"
@@ -369,7 +387,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 r1 = connection.getresponse()
                 data1 = r1.read().decode('utf-8')
                 connection.close()
-                response1 = json.loads(data1) #transform into data structure
+                response1 = json.loads(data1)  # transform into data structure
                 # working with the data in order to obtain all the needed info
                 start = response1[0]['start']
                 end = response1[0]['end']
@@ -383,12 +401,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 Features['chromo'] = response1[0]['assembly_name']
                 Features['id'] = idd
 
-                if 'json=1' in self.path: # transforming the data into json format and returning that
+                if 'json=1' in self.path:  # transforming the data into json format and returning that
                     jsonvalue = 1
-                    contents = json.dumps(Features) # this helps us in order to work with the stored data
+                    contents = json.dumps(Features)  # this helps us in order to work with the stored data
 
                 else:
-                    jsonvalue = 0 # returning the data in html format
+                    jsonvalue = 0  # returning the data in html format
                     # the html page is very simple, thats why its included directly in the code
                     contents = """
 
@@ -408,7 +426,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                                       """
 
-            except KeyError: # error that is raised whenever an invalid name is inserted
+            except KeyError:  # error that is raised whenever an invalid name is inserted
                 jsonvalue = 0
                 HTTP_CODE = 404
                 # printed in html format
@@ -426,8 +444,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                             """
 
-        elif '/geneCalc' in self.path: # endpoint that
-            arguments = self.convert_dict(self.path) # using the previously created function in order to create a dictionary with the values
+        elif '/geneCalc' in self.path:  # endpoint that
+            arguments = self.convert_dict(self.path)
+            # using the previously created function in order to create a dictionary with the values
 
             try:
                 gene_name = arguments['gene']
@@ -439,8 +458,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 data1 = r1.read().decode('utf-8')
                 connection.close()
 
-
-                response = json.loads(data1) # transform into data structures
+                response = json.loads(data1)  # transform into data structures
                 idd = response['data'][0]['id']
 
                 ENDPOINT = "/sequence/id/" + idd + "?content-type=application/json"
@@ -451,18 +469,19 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 print('Response received: {}\n'.format(r1.status, r1.reason))
 
                 data1 = r1.read().decode('utf-8')
-                response = json.loads(data1) #transform into data structures
+                response = json.loads(data1)  # transform into data structures
                 DNAsequence = response['seq']
                 seq = Seq(DNAsequence)
                 length = len(DNAsequence)
 
-                #doing the calculations of the percentage of each base using the function in the class Seq
+                # doing the calculations of the percentage of each base using the function in the class Seq
                 percentage_A = seq.perc('A')
                 percentage_C = seq.perc('C')
                 percentage_T = seq.perc('T')
                 percentage_G = seq.perc('G')
 
-                Calculations = {} #creating a dictionary to store all the calculations performed previously
+                Calculations = {}
+                # creating a dictionary to store all the calculations performed previously
                 Calculations['length'] = length
                 Calculations['Perc_A'] = percentage_A
                 Calculations['Perc_c'] = percentage_C
@@ -474,8 +493,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     contents = json.dumps(Calculations)
 
                 else:
-                    jsonvalue = 0 #return the data in html format
-                    #html file that is very simple and theres no need to create a separate html file
+                    jsonvalue = 0  # return the data in html format
+                    # html file that is very simple and theres no need to create a separate html file
                     contents = """
 
                                       <html>
@@ -495,10 +514,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                                       """
 
-            except KeyError: # error that is shown whenever the input is wrong
+            except KeyError:  # error that is shown whenever the input is wrong
                 jsonvalue = 0
                 HTTP_CODE = 404
-                #error html file
+                # error html file
                 contents = """
 
                         <html>
@@ -513,16 +532,18 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                             """
 
-        elif "/geneList" in self.path: # endpoint that returns the names of the genes located in the chromosome chromo from the start to end positions
-            arguments = self.convert_dict(self.path) # # using the previously created function in order to create a dictionary with the values
+        elif "/geneList" in self.path:
+            # endpoint that returns the names of the genes located in the chromosome chromo
+            # from the start to end positions
+            arguments = self.convert_dict(self.path)
+            # using the previously created function in order to create a dictionary with the values
 
             try:
-                chromo = arguments['chromo']  #parameter
-                start = arguments['start'] # parameter
-                end = arguments['end'] #parameter
+                chromo = arguments['chromo']  # parameter
+                start = arguments['start']  # parameter
+                end = arguments['end']  # parameter
 
-
-                #stablishing the connection with the srever
+                # stablishing the connection with the srever
                 ENDPOINT = "/overlap/region/human/" + str(chromo) + ":" + str(start) + "-" + str(end) + "?content-type=application/json;feature=gene;feature=transcript;feature=cds;feature=exon"
                 headers = {'User-Agent': 'http-client'}
                 connection = http.client.HTTPConnection(HOSTNAME)
@@ -531,9 +552,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 data = response.read().decode("utf-8")
                 connection.close()
 
-                response2 = json.loads(data) # transform into data structures
+                response2 = json.loads(data)  # transform into data structures
                 stop = int(end) - int(start)
-                count = 0 # setting a counter
+                count = 0  # setting a counter
                 List = []
 
                 for possiblegene in response2:
@@ -547,12 +568,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 Dict = {} # generating a dictionary thata is going to contain all the genes
                 Dict['Gene'] = List
 
-                if 'json=1' in self.path: # printing tha data in json format
+                if 'json=1' in self.path:  # printing tha data in json format
                     jsonvalue = 1
                     contents = json.dumps(Dict)
 
                 else:
-                    jsonvalue = 0 # printing tha data in html format
+                    jsonvalue = 0  # printing tha data in html format
                     # creating an html file, it is very simple, that is why is inserted inside the code
                     contents = """
 
@@ -584,10 +605,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                                                     """
 
-            except KeyError: # this is shown each time the input is wrong
-                jsonvalue = 0 # the response is in html format
+            except KeyError:  # this is shown each time the input is wrong
+                jsonvalue = 0  # the response is in html format
                 HTTP_CODE = 404
-                 # ceating an error file
+                # ceating an error file
                 contents = """
 
                                         <html>
@@ -602,7 +623,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                                             """
 
-        else: # if the first endpoint is different from the ones established an error html file appears
+        else:  # if the first endpoint is different from the ones established an error html file appears
             jsonvalue = 0
             HTTP_CODE = 404
             contents = 'error.html'
@@ -646,4 +667,3 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
         print("")
         print("Stopped by the user")
         httpd.server_close()
-
