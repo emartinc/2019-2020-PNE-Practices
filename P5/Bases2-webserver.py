@@ -52,7 +52,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         self.send_header('Content-Type', 'text/html')  # Changed form text\plain to text text\html
         self.send_header('Content-Length', str(len(contents.encode())))
 
-        # ----------------------------------------------------------------------------------
 
         # The header is finished
         self.end_headers()

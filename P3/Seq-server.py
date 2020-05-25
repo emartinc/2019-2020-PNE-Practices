@@ -64,7 +64,7 @@ while True:
 
         elif "COMP" == service:
             complementary = Seq(seq1)
-            response = complementary.seq_complement() + "\n"
+            response = complementary.complement() + "\n"
 
         elif "REV" == service:
             reverse= Seq(seq1)
@@ -73,7 +73,7 @@ while True:
         elif "GENE" == service:
             gene = seq1
             s = Seq()
-            s.seq_read_fasta("../session-04/" + gene + ".txt")
+            s.read_fasta("../Session-04/" + gene + ".txt")
             response = str(s) + "\n"
 
     # Server Console

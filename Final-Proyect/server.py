@@ -426,7 +426,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                             """
 
-        elif '/geneCal' in self.path: # endpoint that
+        elif '/geneCalc' in self.path: # endpoint that
             arguments = self.convert_dict(self.path) # using the previously created function in order to create a dictionary with the values
 
             try:

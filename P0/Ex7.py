@@ -1,6 +1,6 @@
 from Seq0 import *
 
-FOLDER = "../session-04/"
+FOLDER = "../Session-04/"
 GENES = "U5.txt"
 BASES = ['A', 'C', 'T', 'G']
 

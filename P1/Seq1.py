@@ -55,7 +55,7 @@ class Seq:
         else:
             return self.strbases[::-1] #in order to reverse the valid given seq.
 
-    def seq_complement(self):
+    def complement(self):
         if self.strbases in [self.NULL, self.ERROR]: #to check if its an invalid seq or null
             return self.strbases
         # Creating a dictionary of complementary bases
@@ -70,7 +70,7 @@ class Seq:
                         complementary += cobases
             return complementary
 
-    def seq_read_fasta(self, filename):
+    def read_fasta(self, filename):
         "Read a file with a DNA sequence in FASTA format the parameter is the filename (String) and it returns the sequence(String)"
         # Read the file
         contents = Path(filename).read_text()

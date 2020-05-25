@@ -1,6 +1,6 @@
 from Seq0 import *
 
-FOLDER = "../session-04/"
+FOLDER = "../Session-04/"
 FILENAME = "U5.txt"
 
 DNA_FILE =(FOLDER + FILENAME)

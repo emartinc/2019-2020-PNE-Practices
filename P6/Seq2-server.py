@@ -95,7 +95,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             gene = argument_command(self.path)
 
             s = Seq()
-            s.seq_read_fasta("../session-04/" + gene + ".txt")
+            s.read_fasta("../Session-04/" + gene + ".txt")
 
             html = "<h1>Gene Sequence: " + gene + '</h1><textarea readonly rows = "20" cols = "80">' + str(
                 s) + '</textarea>'
@@ -129,7 +129,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 html_result = "<h1>Result:</h1>" + "<p>" + response_info + "</p>"
 
             elif "comp" == operation:
-                response_comp = user_seq.seq_complement() + "\n"
+                response_comp = user_seq.complement() + "\n"
 
                 html_operation = "<h1>Operation:</h1><p>Comp</p>"
                 html_result = "<h1>Result:</h1>" + "<p>" + response_comp + "</p>"

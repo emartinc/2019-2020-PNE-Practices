@@ -7,11 +7,11 @@ print("Practice 2, Exercise 7")
 IP = "192.168.0.29"
 PORT1 = 8081
 PORT2 = 8080
-FOLDER = "../session-04/"
+FOLDER = "../Session-04/"
 filename = FOLDER + 'FRAT1.txt'
 
 s = Seq()
-s.seq_read_fasta(filename)
+s.read_fasta(filename)
 
 #Creating the fragments
 fragment1 = "Fragment 1: "

@@ -6,10 +6,10 @@ print("Practice 2, Exercise 5")
 #Parameters
 IP = "192.168.0.29"
 PORT = 8080
-FOLDER = "../session-04/"
+FOLDER = "../Session-04/"
 filename = FOLDER + 'U5.txt'
 s = Seq()
-s.seq_read_fasta(filename)
+s.read_fasta(filename)
 
 #Create a client object
 c = Client(IP, PORT)

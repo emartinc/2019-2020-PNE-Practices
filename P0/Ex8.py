@@ -2,7 +2,7 @@ from Seq0 import *  # We import the functions from Seq0.py
 
 print("Exercise 8")
 
-FOLDER = "../session-04/"  # Obtaining the gene files from this folder
+FOLDER = "../Session-04/"  # Obtaining the gene files from this folder
 bases = ["A", "C", "T", "G"]
 GENES= ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]  # List of genes
 
